@@ -1,3 +1,4 @@
 cd bin
-zip tsc.zip tsc
-mv tsc.zip ..
+tar -czf tsc.tar.gz tsc
+mv tsc.tar.gz ..
+cd ..
