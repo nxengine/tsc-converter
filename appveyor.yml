@@ -1,0 +1,30 @@
+version: 1.0.{build}
+
+pull_requests:
+  do_not_increment_build_number: true
+
+configuration: Release
+
+platform:
+- x86
+
+build:
+  project: win32/tsc/tsc.sln
+  verbosity: minimal
+
+before_deploy:
+ - ps: .\win32\win.package.ps1
+
+deploy:
+  - provider: GitHub
+    release: $(APPVEYOR_REPO_TAG_NAME)
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    description: ''
+    auth_token:
+      secure: UNAaCG+KMRMqZqVEHpSgXTXZOJlqEQ/7nySQ6U/LutHjXnuqVNpYDxoqIW1hufI+
+    artifact: /tsc-.*\.zip/
+    draft: true
+    force_update: true
+    prerelease: false
+    on:
+      appveyor_repo_tag: true
