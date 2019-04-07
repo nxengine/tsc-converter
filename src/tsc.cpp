@@ -108,18 +108,18 @@ int main(int argc, char *argv[])
   {
     parser.ParseCLI(argc, argv);
   }
-  catch (args::Help)
+  catch (args::Help& e)
   {
     std::cout << "Usage:\n" << parser;
     return -1;
   }
-  catch (args::ParseError e)
+  catch (args::ParseError& e)
   {
     std::cerr << e.what() << std::endl;
     std::cout << "\n\nUsage:\n" << parser;
     return -1;
   }
-  catch (args::ValidationError e)
+  catch (args::ValidationError& e)
   {
     std::cerr << e.what() << std::endl;
     std::cout << "\n\nUsage:\n" << parser;
