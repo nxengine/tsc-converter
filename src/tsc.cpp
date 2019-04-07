@@ -14,7 +14,7 @@ bool Decrypt(const std::string& fname, const std::string& fname_out)
     if (!ifs)
     {
         std::cerr << "tsc_decrypt: no such file: " << fname << std::endl;
-        return -1;
+        return false;
     }
 
     ofs.open (fname_out, std::ifstream::binary);
@@ -22,7 +22,7 @@ bool Decrypt(const std::string& fname, const std::string& fname_out)
     if (!ofs)
     {
         std::cerr << "tsc_decrypt: can't open file: " << fname << std::endl;
-        return -1;
+        return false;
     }
 
     ifs.seekg (0, ifs.end);
@@ -45,7 +45,7 @@ bool Decrypt(const std::string& fname, const std::string& fname_out)
     ofs.write((char*)buf, fsize);
     ofs.close();
 
-    return 0;
+    return true;
 }
 
 bool Encrypt(const std::string& fname, const std::string& fname_out)
@@ -59,7 +59,7 @@ bool Encrypt(const std::string& fname, const std::string& fname_out)
     if (!ifs)
     {
         std::cerr << "tsc_encrypt: no such file: " << fname << std::endl;
-        return -1;
+        return false;
     }
 
     ofs.open (fname_out, std::ifstream::binary);
@@ -67,7 +67,7 @@ bool Encrypt(const std::string& fname, const std::string& fname_out)
     if (!ofs)
     {
         std::cerr << "tsc_encrypt: can't open file: " << fname << std::endl;
-        return -1;
+        return false;
     }
 
     ifs.seekg (0, ifs.end);
@@ -90,7 +90,7 @@ bool Encrypt(const std::string& fname, const std::string& fname_out)
     ofs.write((char*)buf, fsize);
     ofs.close();
 
-    return 0;
+    return true;
 }
 
 int main(int argc, char *argv[])
@@ -108,7 +108,7 @@ int main(int argc, char *argv[])
   {
     parser.ParseCLI(argc, argv);
   }
-  catch (args::Help& e)
+  catch (args::Help&)
   {
     std::cout << "Usage:\n" << parser;
     return -1;
